@@ -1,6 +1,7 @@
+COMPONENT_SRCDIRS := src wolfcrypt/src
 COMPONENT_ADD_INCLUDEDIRS := .
-
-COMPONENT_OBJS :=  src/internal.o          \
+COMPONENT_OBJS := \
+    src/internal.o          \
     src/io.o                \
     src/keys.o              \
     src/ocsp.o              \
@@ -34,10 +35,6 @@ COMPONENT_OBJS :=  src/internal.o          \
     wolfcrypt/src/wc_port.o \
     wolfcrypt/src/wc_encrypt.o
 
-COMPONENT_SRCDIRS := src wolfcrypt/src
-COMPONENT_SUBMODULES += libwolfssl
-
-#Build settings
 WOLFSSL_SETTINGS =        \
     -DSIZEOF_LONG_LONG=8  \
     -DSMALL_SESSION_CACHE \
@@ -73,20 +70,16 @@ WOLFSSL_SETTINGS =        \
     -DHAVE_CERTIFICATE_STATUS_REQUEST \
     -DCUSTOM_RAND_GENERATE_SEED=os_get_random
 
-#Include flags
-WOLFSSL_INCDIRS = \
-    -I.
-
-LWIP_INCDIRS =                                    \
-    -I$(IDF_PATH)/components/lwip/system       \
+LWIP_INCDIRS = \
+    -I$(IDF_PATH)/components/lwip/system \
     -I$(IDF_PATH)/components/lwip/include/lwip \
     -I$(IDF_PATH)/components/lwip/include/lwip/port
 
-FREERTOS_INCDIRS =                               \
+FREERTOS_INCDIRS = \
     -I$(IDF_PATH)/components/freertos/include \
     -I$(IDF_PATH)/components/freertos/include/freertos
 
-CFLAGS =                      \
+CFLAGS = \
     -fstrict-volatile-bitfields \
     -ffunction-sections         \
     -fdata-sections             \
@@ -97,7 +90,6 @@ CFLAGS =                      \
     -DNDEBUG                    \
     -std=gnu99                  \
     -Wno-old-style-declaration  \
-    $(WOLFSSL_INCDIRS)          \
     $(LWIP_INCDIRS)             \
     $(FREERTOS_INCDIRS)         \
     $(WOLFSSL_SETTINGS)

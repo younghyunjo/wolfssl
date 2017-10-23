@@ -511,7 +511,11 @@ static char *fgets(char *buff, int sz, FILE *fp)
 
 
 #ifdef FREERTOS
+#ifndef ESP32
     #include "FreeRTOS.h"
+#else
+    #include "freertos/FreeRTOS.h"
+#endif
 
     /* FreeRTOS pvPortRealloc() only in AVR32_UC3 port */
     #if !defined(XMALLOC_USER) && !defined(NO_WOLFSSL_MEMORY)
